@@ -1,0 +1,62 @@
+from typing import Tuple
+from ..errors.entity_errors import ParamNotValidated
+from ..enums.item_type_enum import ItemTypeEnum
+
+class Cliente:
+    nome: str
+    conta: str
+    saldo_atual: int
+    agencia: str
+
+    def __init__(self, nome: str = None, conta: str = None, saldo_atual: float = None, agencia: int = None):
+        valida_nome = self.valida_nome(nome)
+        if valida_nome[0] is False:
+            raise ParamNotValidated("nome", valida_nome[1])
+        self.nome = nome
+
+        valida_conta = self.valida_conta(conta)
+        if valida_conta[0] is False:
+            raise ParamNotValidated("conta", valida_conta[1])
+        self.conta = conta
+
+        valida_saldo = self.valida_saldo(saldo_atual)
+        if valida_saldo[0] is False:
+            raise ParamNotValidated("saldo atual", valida_saldo[1])
+        self.saldo_atual = saldo_atual
+
+        valida_agencia = self.valida_agencia(agencia)
+        if valida_agencia[0] is False:
+            raise ParamNotValidated("agencia", valida_agencia[1])
+        self.agencia = agencia
+
+    @staticmethod
+    def valida_nome(nome: str) -> Tuple[bool, str]:
+        if nome is None:
+            return (False, "O nome é necessário")
+        if type(nome) != str:
+            return (False, "O nome precisa ser uma string")
+        return (True, "")
+
+    @staticmethod
+    def valida_conta(conta: str) -> Tuple[bool, str]:
+        if conta is None:
+            return (False, "A conta é obrigatória")
+        if type(conta) != str:
+            return (False, "A conta deve ser uma string")
+        return (True, "")
+
+    @staticmethod
+    def valida_saldo(saldo_atual: int) -> Tuple[bool, str]:
+        if saldo_atual is None:
+            return (False, "Deve existir um valor")
+        if type(saldo_atual) != int:
+            return (False, "O saldo deve ser do tipo float")
+        return (True, "")
+
+    @staticmethod
+    def valida_agencia(agencia: str) -> Tuple[bool, str]:
+        if agencia is None:
+            return (False, "A agência é necessária")
+        if type(agencia) != str:
+            return (False, "A agência deve ser do tipo int")
+        return (True, "")

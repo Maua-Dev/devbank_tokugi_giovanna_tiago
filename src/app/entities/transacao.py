@@ -9,7 +9,7 @@ class Trasancao:
     tipo: TransacTypeEnum
     saldoNaHora: float
 
-    def __init__(self, hora: str = None, quantia: float = None, tipo: TransacTypeEnum = None, saldoNaHora: float = None):
+    def __init__(self, hora: float = None, quantia: float = None, tipo: TransacTypeEnum = None, saldoNaHora: float = None):
         validate_quantia = self.validate_quantia(quantia, saldoNaHora)
         # validate_quantia = [bool, str]
         if validate_quantia[0] is False:
@@ -20,6 +20,13 @@ class Trasancao:
         if validate_tipo[0] is False:
             raise ParamNotValidated("tipo", validate_tipo[1])
         self.tipo = tipo
+
+    @staticmethod
+    def validate_hora(hora:float = None) -> Tuple[bool, str]:
+        if hora != float:
+            return (False, "O horario deve ser do tipo float")
+        if hora < 0:
+            return (False, "O horario deve ser um valor válido" )
 
     @staticmethod
     def validate_quantia(quantia: float, saldoNaHora: float) -> Tuple[bool, str]:
@@ -39,9 +46,15 @@ class Trasancao:
             return (False, "O tipo deve existir em TransacTypeEnum")
         return (True, "")
 
+    @staticmethod
+    def validate_saldoNaHora(saldoNaHora: float = None ) -> Tuple[bool, str]:
+        if saldoNaHora != float:
+            return (False, "O saldo é deve ser do tipo float")
+        if saldoNaHora < 0:
+            return (False, "O saldo não pode ser negativo")
 
 
-
+    @staticmethod
     def to_dict(self):
         return {
             "type": self.tipo,
@@ -49,3 +62,5 @@ class Trasancao:
             "timestamp": self.hora,
             "value": self.quantia
         }
+
+

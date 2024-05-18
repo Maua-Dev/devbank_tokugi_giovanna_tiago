@@ -5,7 +5,7 @@ from ..enums.item_type_enum import ItemTypeEnum
 class Cliente:
     nome: str
     conta: str
-    saldo_atual: int
+    saldo_atual: float
     agencia: str
 
     def __init__(self, nome: str = None, conta: str = None, saldo_atual: float = None, agencia: int = None):
@@ -46,10 +46,10 @@ class Cliente:
         return (True, "")
 
     @staticmethod
-    def valida_saldo(saldo_atual: int) -> Tuple[bool, str]:
+    def valida_saldo(saldo_atual: aloat) -> Tuple[bool, str]:
         if saldo_atual is None:
             return (False, "Deve existir um valor")
-        if type(saldo_atual) != int:
+        if type(saldo_atual) != float:
             return (False, "O saldo deve ser do tipo float")
         return (True, "")
 

@@ -9,8 +9,9 @@ class Trasancao:
     tipo: TransacTypeEnum
     saldoNaHora: float
 
-    def __init__(self, hora: str = None, quantia: int = None, tipo: TransacTypeEnum = None, saldoNaHora: int = None):
+    def __init__(self, hora: str = None, quantia: float = None, tipo: TransacTypeEnum = None, saldoNaHora: float = None):
         validate_quantia = self.validate_quantia(quantia, saldoNaHora)
+        # validate_quantia = [bool, str]
         if validate_quantia[0] is False:
             raise ParamNotValidated("quantia", validate_quantia[1])
         self.quantia = quantia
@@ -21,11 +22,11 @@ class Trasancao:
         self.tipo = tipo
 
     @staticmethod
-    def validate_quantia(quantia: int, saldoNaHora: int) -> Tuple[bool, str]:
-        if quantia != int:
+    def validate_quantia(quantia: float, saldoNaHora: float) -> Tuple[bool, str]:
+        if quantia != float:
             return (False, "A quantia deve ser um inteiro")
         if quantia > saldoNaHora * 2:
-            return (False, "Saldo suspeito")
+            return (False, "Deposito suspeito")
         if quantia < 1:
             return (False, "Quantia deve ser maior do que 1")
         return (True, "")
@@ -37,6 +38,9 @@ class Trasancao:
         if type(tipo) != TransacTypeEnum:
             return (False, "O tipo deve existir em TransacTypeEnum")
         return (True, "")
+
+
+
 
     def to_dict(self):
         return {

@@ -1,11 +1,16 @@
-# from fastapi.exceptions import HTTPException
-# import pytest
-# from src.app.entities.item import Item
-# from src.app.enums.item_type_enum import ItemTypeEnum
-# from src.app.main import get_all_items, get_item, create_item, delete_item, update_item
-# from src.app.repo.item_repository_mock import ItemRepositoryMock
-#
-# class Test_Main:
+from fastapi.exceptions import HTTPException
+import pytest
+from src.app.entities.cliente import Cliente
+from src.app.enums.item_type_enum import TransacTypeEnum
+from src.app.main import get_all_clients
+from src.app.repo.item_repository_mock import ItemRepositoryMock
+
+class Test_Main:
+    def test_get_all_clients(self):
+        repo = ItemRepositoryMock()
+        response = get_all_clients
+        assert all([client_expect.to_dict() == client for client_expect, client in zip(repo.clientes.values(), response.get("clientes"))])
+
 #     def test_get_all_items(self):
 #         repo = ItemRepositoryMock()
 #         response = get_all_items()

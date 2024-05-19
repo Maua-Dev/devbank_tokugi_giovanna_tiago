@@ -1,21 +1,28 @@
-# from fastapi import FastAPI, HTTPException
-# from mangum import Mangum
-#
-# from .environments import Environments
-#
-# from .repo.item_repository_mock import ItemRepositoryMock
-#
-# from .errors.entity_errors import ParamNotValidated
-#
-# from .enums.item_type_enum import ItemTypeEnum
-#
-# from .entities.item import Item
-#
-#
-# app = FastAPI()
-#
-# repo = Environments.get_item_repo()()
-#
+from fastapi import FastAPI, HTTPException
+from mangum import Mangum
+
+from .environments import Environments
+
+from .repo.item_repository_mock import ItemRepositoryMock
+
+from .errors.entity_errors import ParamNotValidated
+
+from .enums.item_type_enum import TransacTypeEnum
+
+from .entities.cliente import Cliente
+
+
+app = FastAPI()
+
+repo = Environments.get_item_repo()()
+
+@app.get("/clientes/get_all_clients")
+def get_all_clients():
+    clients = repo.get_all_clients()
+    return {
+      "clients" : [clients.to_dict() for client in clients]
+    }
+
 # @app.get("/items/get_all_items")
 # def get_all_items():
 #     items = repo.get_all_items()

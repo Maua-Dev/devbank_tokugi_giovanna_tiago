@@ -7,16 +7,16 @@ from .item_repository_interface import IItemRepository
 
 class ItemRepositoryMock(IItemRepository):
     clientes: Dict[int, Cliente]
-    
+
     def __init__(self):
         self.clientes = {
             1: Cliente(name="Tiago Tokugi", agencia="9999", conta="99999-9", saldo_atual=1000.0),
             2: Cliente(name="Giovanna Albuquerque", agencia="8888", conta="88888-8", saldo_atual=800.0)
         }
-        
+
     def get_all_clients(self) -> List[Cliente]:
         return self.clientes.values()
-    
+
     # def get_item(self, item_id: int) -> Optional[Item]:
     #     return self.items.get(item_id, None)
     #

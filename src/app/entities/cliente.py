@@ -66,7 +66,6 @@ class Cliente:
             return(False, "A agência deve ser formada por 4 dígitos")
         return (True, " ")
 
-    @staticmethod
     def to_dict(self):
         return {
             "name": self.name,

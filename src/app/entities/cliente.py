@@ -14,7 +14,7 @@ class Cliente:
             raise ParamNotValidated("nome", valida_nome[1])
         self.nome = nome
 
-        """valida_conta = self.valida_conta(conta)
+        valida_conta = self.valida_conta(conta)
         if valida_conta[0] is False:
             raise ParamNotValidated("conta", valida_conta[1])
         self.conta = conta
@@ -27,7 +27,7 @@ class Cliente:
         valida_agencia = self.valida_agencia(agencia)
         if valida_agencia[0] is False:
             raise ParamNotValidated("agencia", valida_agencia[1])
-        self.agencia = agencia"""
+        self.agencia = agencia
 
     @staticmethod
     def valida_nome(nome: str) -> Tuple[bool, str]:
@@ -65,3 +65,5 @@ class Cliente:
         if len(agencia) != 4 :
             return(False, "A agência deve ser formada por 4 dígitos")
         return (True, " ")
+
+

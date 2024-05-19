@@ -20,7 +20,7 @@ repo = Environments.get_item_repo()()
 def get_all_clients():
     clients = repo.get_all_clients()
     return {
-        "clients": [client.to_dict() for client in clients]
+        "clients": [client.to_dict(client) for client in clients]
     }
 
 # @app.get("/items/get_all_items")

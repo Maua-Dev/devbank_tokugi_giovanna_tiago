@@ -7,7 +7,7 @@ class Cliente:
     saldo_atual: float
     agencia: str
 
-    def __init__(self, nome: str = None, conta: str = None, saldo_atual: float = None, agencia: int = None):
+    def __init__(self, nome: str = None, conta: str = None, saldo_atual: float = None, agencia: str = None):
 
         valida_nome = self.valida_nome(nome)
         if valida_nome[0] is False:

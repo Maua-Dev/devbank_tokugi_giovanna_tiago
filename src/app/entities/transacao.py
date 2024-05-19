@@ -29,11 +29,9 @@ class Trasancao:
             return (False, "O horario deve ser um valor válido" )
 
     @staticmethod
-    def validate_quantia(quantia: float, saldoNaHora: float) -> Tuple[bool, str]:
+    def validate_quantia(quantia: float) -> Tuple[bool, str]:
         if quantia != float:
             return (False, "A quantia deve ser um inteiro")
-        if quantia > saldoNaHora * 2:
-            return (False, "Deposito suspeito")
         if quantia < 1:
             return (False, "Quantia deve ser maior do que 1")
         return (True, "")

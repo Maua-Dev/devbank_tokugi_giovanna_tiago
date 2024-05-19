@@ -9,7 +9,7 @@ class Test_Main:
     def test_get_all_clients(self):
         repo = ItemRepositoryMock()
         response = get_all_clients
-        assert all([client_expect.to_dict() == client for client_expect, client in zip(repo.clientes.values(), response.get("clientes"))])
+        assert all([client_expect.to_dict() == client for client_expect, client in zip(repo.clientes.values(), response.get("clients"))])
 
 #     def test_get_all_items(self):
 #         repo = ItemRepositoryMock()

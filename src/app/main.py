@@ -11,16 +11,16 @@ from .enums.item_type_enum import TransacTypeEnum
 
 from .entities.cliente import Cliente
 
-
 app = FastAPI()
 
 repo = Environments.get_item_repo()()
 
-@app.get("/clientes/get_all_clients")
+
+@app.get("/clients/get_all_clients")
 def get_all_clients():
     clients = repo.get_all_clients()
     return {
-      "clients" : [clients.to_dict() for client in clients]
+        "clients": [clients.to_dict() for client in clients]
     }
 
 # @app.get("/items/get_all_items")

@@ -10,7 +10,7 @@ class Trasancao:
     saldoNaHora: float
 
     def __init__(self, hora: float = None, quantia: float = None, tipo: TransacTypeEnum = None, saldoNaHora: float = None):
-        validate_quantia = self.validate_quantia(quantia, saldoNaHora)
+        validate_quantia = self.validate_quantia(quantia)
         # validate_quantia = [bool, str]
         if validate_quantia[0] is False:
             raise ParamNotValidated("quantia", validate_quantia[1])
@@ -20,6 +20,16 @@ class Trasancao:
         if validate_tipo[0] is False:
             raise ParamNotValidated("tipo", validate_tipo[1])
         self.tipo = tipo
+
+        validate_hora = self.validate_hora(hora)
+        if validate_hora[0] is False:
+            raise ParamNotValidated("hora", validate_hora[1])
+        self.hora = hora
+
+        validate_saldo = self.validate_saldoNaHora(saldoNaHora)
+        if validate_saldo[0] is False:
+            raise ParamNotValidated("Saldo", validate_saldo[1])
+        self.saldoNaHora = saldoNaHora
 
     @staticmethod
     def validate_hora(hora:float = None) -> Tuple[bool, str]:

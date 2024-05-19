@@ -10,7 +10,7 @@ class ItemRepositoryMock(IItemRepository):
     
     def __init__(self):
         self.clients = {
-            1: Cliente(nome="Tiago Tokugi", agencia="99999-9", conta="9999", saldo_atual=1000.0)
+            1: Cliente(nome="Tiago Tokugi", agencia="9999", conta="99999-9", saldo_atual=1000.0)
         }
         
     def get_all_clients(self) -> List[Cliente]:

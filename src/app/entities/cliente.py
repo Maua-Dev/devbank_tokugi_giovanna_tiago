@@ -2,17 +2,17 @@ from typing import Tuple
 from ..errors.entity_errors import ParamNotValidated
 
 class Cliente:
-    nome: str
+    name: str
     conta: str
     saldo_atual: float
     agencia: str
 
-    def __init__(self, nome: str = None, conta: str = None, saldo_atual: float = None, agencia: str = None):
+    def __init__(self, name: str = None, conta: str = None, saldo_atual: float = None, agencia: str = None):
 
-        valida_nome = self.valida_nome(nome)
+        valida_nome = self.valida_nome(name)
         if valida_nome[0] is False:
             raise ParamNotValidated("nome", valida_nome[1])
-        self.nome = nome
+        self.name = name
 
         valida_conta = self.valida_conta(conta)
         if valida_conta[0] is False:
@@ -69,7 +69,7 @@ class Cliente:
     @staticmethod
     def to_dict(self):
         return {
-            "name": self.nome,
+            "name": self.name,
             "current_balance": self.saldo_atual,
             "account": self.conta,
             "agency": self.agencia

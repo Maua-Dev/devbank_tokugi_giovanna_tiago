@@ -6,15 +6,15 @@ from .item_repository_interface import IItemRepository
 
 
 class ItemRepositoryMock(IItemRepository):
-    clients: Dict[int, Cliente]
+    clientes: Dict[int, Cliente]
     
     def __init__(self):
-        self.clients = {
+        self.clientes = {
             1: Cliente(nome="Tiago Tokugi", agencia="9999", conta="99999-9", saldo_atual=1000.0)
         }
         
     def get_all_clients(self) -> List[Cliente]:
-        return self.clients.values()
+        return self.clientes.values()
     
     # def get_item(self, item_id: int) -> Optional[Item]:
     #     return self.items.get(item_id, None)

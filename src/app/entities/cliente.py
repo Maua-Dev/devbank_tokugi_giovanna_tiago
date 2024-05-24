@@ -66,6 +66,16 @@ class Cliente:
             return(False, "A agência deve ser formada por 4 dígitos")
         return (True, " ")
 
+    @staticmethod
+    def valida_cliente_id(client_id: int) -> Tuple[bool, str]:
+        if client_id is None:
+            return(False, "O id do cliente não pode ser None")
+        if type(client_id) != int:
+            return(False, "O id do cliente deve ser um inteiro")
+        if client_id < 0:
+            return(False, "O id do cliente deve ser maior que zero")
+        return(True, "")
+
     def to_dict(self):
         return {
             "name": self.name,

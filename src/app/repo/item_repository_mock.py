@@ -17,6 +17,9 @@ class ItemRepositoryMock(IItemRepository):
     def get_all_clients(self) -> List[Cliente]:
         return self.clientes.values()
 
+    def get_client(self, client_id: int) -> Optional[Cliente]:
+        return self.clientes.get(client_id, None)
+
     # def get_item(self, item_id: int) -> Optional[Item]:
     #     return self.items.get(item_id, None)
     #

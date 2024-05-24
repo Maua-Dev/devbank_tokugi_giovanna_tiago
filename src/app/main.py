@@ -13,7 +13,7 @@ from .entities.cliente import Cliente
 
 app = FastAPI()
 
-repo = Environments.get_item_repo()()
+repo = Environments.get_client_repo()()
 
 
 @app.get("/clients/get_all_clients")
@@ -23,13 +23,23 @@ def get_all_clients():
         "clients": [client.to_dict() for client in clients]
     }
 
-# @app.get("/items/get_all_items")
-# def get_all_items():
-#     items = repo.get_all_items()
-#     return {
-#         "items": [item.to_dict() for item in items]
-#     }
-#
+
+@app.get("/")
+def get_client(client_id: int):
+    validation_cliente_id = Cliente.valida_cliente_id(client_id=client_id)
+    if not validation_cliente_id[0]:
+        raise HTTPException(status_code=400, detail=validation_cliente_id[1])
+
+    cliente = repo.get_client(client_id)
+
+    if cliente is None:
+        raise HTTPException(status_code=404, detail="Client Not Found")
+
+    return {
+        "client_id": client_id,
+        "client": cliente.to_dict()
+    }
+
 # @app.get("/items/{item_id}")
 # def get_item(item_id: int):
 #     validation_item_id = Item.validate_item_id(item_id=item_id)

@@ -2,6 +2,7 @@ from fastapi.exceptions import HTTPException
 import pytest
 from src.app.entities.cliente import Cliente
 from src.app.enums.item_type_enum import TransacTypeEnum
+from src.app.main import get_client
 from src.app.main import get_all_clients
 from src.app.repo.item_repository_mock import ItemRepositoryMock
 
@@ -11,19 +12,15 @@ class Test_Main:
         response = get_all_clients()
         assert all([client_expect.to_dict() == client for client_expect, client in zip(repo.clientes.values(), response.get("clients"))])
 
-#     def test_get_all_items(self):
-#         repo = ItemRepositoryMock()
-#         response = get_all_items()
-#         assert all([item_expect.to_dict() == item for item_expect, item in zip(repo.items.values(), response.get("items"))])
-#
-#     def test_get_item(self):
-#         repo = ItemRepositoryMock()
-#         item_id = 1
-#         response = get_item(item_id=item_id)
-#         assert response == {
-#             'item_id' : item_id,
-#             'item': repo.items.get(item_id).to_dict()
-#         }
+    def test_get_client(self):
+        repo = ItemRepositoryMock()
+        client_id = 1
+        response = get_client(client_id=client_id)
+        assert response == {
+            'client_id' : client_id,
+            'client' : repo.clientes.get(client_id).to_dict()
+        }
+
 #
 #     def test_get_item_id_is_none(self):
 #

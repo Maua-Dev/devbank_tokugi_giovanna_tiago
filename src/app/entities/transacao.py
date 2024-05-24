@@ -62,7 +62,7 @@ class Trasancao:
             return (False, "O saldo não pode ser negativo")
 
 
-    @staticmethod
+
     def to_dict(self):
         return {
             "type": self.tipo,
@@ -70,5 +70,16 @@ class Trasancao:
             "timestamp": self.hora,
             "value": self.quantia
         }
+
+    @staticmethod
+    def validate_transac_id(transac_id:int ) -> Tuple[bool, str]:
+        if transac_id is None:
+            return (False, "O id da transação não pode ser None")
+        if type(transac_id) != int:
+            return (False, "O id da transação deve ser um inteiro")
+        if transac_id < 0:
+            return (False, "O id da transação deve ser maior que zero")
+        return (True, "")
+
 
 

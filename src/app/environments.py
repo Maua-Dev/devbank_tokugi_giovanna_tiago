@@ -43,6 +43,13 @@ class Environments:
         else:
             raise EnvironmentNotFound("STAGE")
 
+    @staticmethod
+    def get_transac_repo() -> IItemRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from .repo.transac_repositorio_mock import TransacRepositoriMock
+            return TransacRepositoriMock
+        else:
+            raise EnvironmentNotFound("STAGE")
 
     @staticmethod
     def get_envs() -> "Environments":

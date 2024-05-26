@@ -2,7 +2,7 @@ import time
 
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
-from .entities.transacao import Trasancao
+from .entities.transacao import Transacao
 from .environments import Environments
 from datetime import datetime
 
@@ -51,7 +51,7 @@ def get_client(client_id: int):
 def create_deposit(request: dict):
     transac_id = request.get("transac_id")
 
-    validate_transac_id = Trasancao.validate_transac_id(transac_id=transac_id)
+    validate_transac_id = Transacao.validate_transac_id(transac_id=transac_id)
     if not validate_transac_id[0]:
         raise HTTPException(status_code=400, detail=validate_transac_id[1])
 
@@ -67,7 +67,7 @@ def create_deposit(request: dict):
     n100= request.get("100"),
     n200= request.get("200")
     try:
-        transac = Trasancao(quantia=n2*2 + n5*5 + n10*10 + n20*20 + n100*100 + n200*200,
+        transac = Transacao(quantia=n2*2 + n5*5 + n10*10 + n20*20 + n100*100 + n200*200,
                             tipo=TransacTypeEnum.DEPOSIT, saldoNaHora=1000.0,
                             hora=datetime.fromtimestamp(time.time()))
     except ParamNotValidated as err:

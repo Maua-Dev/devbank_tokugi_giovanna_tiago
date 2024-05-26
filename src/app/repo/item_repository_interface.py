@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from optparse import Option
-from typing import List
+from typing import List, Optional
 
 from ..enums.item_type_enum import TransacTypeEnum
 
@@ -18,7 +17,7 @@ class IItemRepository(ABC):
         pass
 
     @abstractmethod
-    def get_client(self) -> Option[Cliente]:
+    def get_client(self) -> Optional[Cliente]:
         '''
         Returns the client with the given id.
         If the item does not exist, returns None

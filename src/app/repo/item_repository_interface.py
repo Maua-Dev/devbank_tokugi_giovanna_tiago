@@ -17,6 +17,7 @@ class IItemRepository(ABC):
         '''
         pass
 
+    @abstractmethod
     def get_client(self) -> Option[Cliente]:
         '''
         Returns the client with the given id.

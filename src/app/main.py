@@ -6,8 +6,6 @@ from .entities.transacao import Transacao
 from .environments import Environments
 from datetime import datetime
 
-
-
 from .repo.item_repository_mock import ItemRepositoryMock
 
 from .errors.entity_errors import ParamNotValidated
@@ -21,6 +19,7 @@ app = FastAPI()
 repo = Environments.get_client_repo()()
 repot = Environments.get_transac_repo()()
 
+clienteTeste = repo.get_client(1)
 
 @app.get("/clients/get_all_clients")
 def get_all_clients():
@@ -59,41 +58,37 @@ def create_deposit(request: dict):
     if transac is not None:
         raise HTTPException (status_code=409, detail=" Transação já existe")
 
-    n2= request.get("2"),
-    n5= request.get("5"),
-    n10= request.get("10"),
-    n20= request.get("20"),
-    n50= request.get("50"),
-    n100= request.get("100"),
-    n200= request.get("200")
-    try:
-        transac = Transacao(quantia=n2*2 + n5*5 + n10*10 + n20*20 + n100*100 + n200*200,
-                            tipo=TransacTypeEnum.DEPOSIT, saldoNaHora=1000.0,
-                            hora=datetime.fromtimestamp(time.time()))
-    except ParamNotValidated as err:
-        raise HTTPException(status_code=400, detail= err.message)
-    deposit_response = repot.create_deposit(transac,transac_id)
-    return {
-        "transac_id":transac_id,
-        "transac":deposit_response.to_dict()
+    model = {
+        "2": 0,
+        "5": 0,
+        "10": 0,
+        "20": 0,
+        "50": 0,
+        "100": 0,
+        "200": 0
     }
 
-# @app.get("/items/{item_id}")
-# def get_item(item_id: int):
-#     validation_item_id = Item.validate_item_id(item_id=item_id)
-#     if not validation_item_id[0]:
-#         raise HTTPException(status_code=400, detail=validation_item_id[1])
-#
-#     item = repo.get_item(item_id)
-#
-#     if item is None:
-#         raise HTTPException(status_code=404, detail="Item Not found")
-#
-#     return {
-#         "item_id": item_id,
-#         "item": item.to_dict()
-#     }
-#
+    quantia = 0.0
+
+    for chave in request:
+        if model[chave, None] is not None:
+            quantia += int(chave) * float(request.get(model[chave]))
+
+    if quantia > clienteTeste.current_balance*2:
+        raise HTTPException(status_code=403, detail="Saldo suspeito")
+
+    clienteTeste.saldo_atual += quantia
+
+    transacao = Transacao(saldoNaHora=clienteTeste.saldo_atual, hora=datetime.fromtimestamp(time.time()), quantia=quantia, tipo=TransacTypeEnum.DEPOSIT)
+
+    repot.cria_transacao(transac=transacao, transac_id=int((transacao.saldoNaHora * transacao.quantia) / 1000))
+
+    return {
+        "hora": datetime.fromtimestamp(time.time()),
+        "saldoNaHora": clienteTeste.saldo_atual
+    }
+
+
 # @app.post("/items/create_item", status_code=201)
 # def create_item(request: dict):
 #     item_id = request.get("item_id")

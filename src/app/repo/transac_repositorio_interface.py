@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ..entities.transacao import Trasancao
+from ..entities.transacao import Transacao
 
 
 class TransacRepository(ABC):

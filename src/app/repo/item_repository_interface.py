@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from optparse import Option
 from typing import List
 
 from ..enums.item_type_enum import TransacTypeEnum
@@ -13,6 +14,13 @@ class IItemRepository(ABC):
     def get_all_clients(self) -> List[Cliente]:
         '''
         Returns all the clients in the database
+        '''
+        pass
+
+    def get_client(self) -> Option[Cliente]:
+        '''
+        Returns the client with the given id.
+        If the item does not exist, returns None
         '''
         pass
 

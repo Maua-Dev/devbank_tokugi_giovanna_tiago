@@ -3,7 +3,7 @@ from ..enums.item_type_enum import TransacTypeEnum
 from ..errors.entity_errors import ParamNotValidated
 
 
-class Trasancao:
+class Transacao:
     hora: float
     quantia: float
     tipo: TransacTypeEnum

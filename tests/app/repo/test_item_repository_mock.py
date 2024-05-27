@@ -2,7 +2,26 @@
 # from src.app.entities.item import Item
 # from src.app.enums.item_type_enum import ItemTypeEnum
 # from src.app.repo.item_repository_mock import ItemRepositoryMock
-#
+from websockets import client
+
+from src.app.repo.item_repository_mock import ItemRepositoryMock
+
+
+class Test_ItemRepositoryMock:
+     def test_get_all_clients(self):
+         repo = ItemRepositoryMock()
+         assert all([item_expect == item for item_expect, item in zip(repo.clientes.values(), repo.get_all_clients())])
+
+     def test_get_client(self):
+         repo = ItemRepositoryMock()
+         client = repo.get_client(client_id=1)
+         assert client == repo.clientes.get(1)
+
+     def test_get_client_not_found(self):
+         repo = ItemRepositoryMock()
+         client = repo.get_client(client_id=10)
+         assert client is None
+
 # class Test_ItemRepositoryMock:
 #     def test_get_all_items(self):
 #         repo = ItemRepositoryMock()

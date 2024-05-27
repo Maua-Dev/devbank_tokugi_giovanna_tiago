@@ -22,3 +22,5 @@ class TransacRepositoriMock(TransacRepository):
             transac_id += 1
         self.transacoes[transac_id] = transac
         return transac
+
+

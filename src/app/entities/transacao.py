@@ -33,15 +33,18 @@ class Transacao:
 
     @staticmethod
     def validate_hora(hora:float = None) -> Tuple[bool, str]:
-        if hora != float:
+        if type(hora) != float:
             return (False, "O horario deve ser do tipo float")
         if hora < 0:
             return (False, "O horario deve ser um valor válido" )
+        if hora is None:
+            return(False, "O horario não pode ser None")
+        return (True,"")
 
     @staticmethod
     def validate_quantia(quantia: float) -> Tuple[bool, str]:
-        if quantia != float:
-            return (False, "A quantia deve ser um inteiro")
+        if type(quantia) != float:
+            return (False, "A quantia deve ser um float")
         if quantia < 1:
             return (False, "Quantia deve ser maior do que 1")
         return (True, "")
@@ -56,11 +59,13 @@ class Transacao:
 
     @staticmethod
     def validate_saldoNaHora(saldoNaHora: float = None ) -> Tuple[bool, str]:
-        if saldoNaHora != float:
+        if type(saldoNaHora) != float:
             return (False, "O saldo é deve ser do tipo float")
         if saldoNaHora < 0:
             return (False, "O saldo não pode ser negativo")
-
+        if saldoNaHora is None:
+            return (False,"Saldo na Hora não pode ser None")
+        return(True,"")
 
 
     def to_dict(self):

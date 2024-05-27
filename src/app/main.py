@@ -48,15 +48,6 @@ def get_client(client_id: int):
 
 @app.post("/deposit", status_code=201)
 def create_deposit(request: dict):
-    transac_id = request.get("transac_id")
-
-    validate_transac_id = Transacao.validate_transac_id(transac_id=transac_id)
-    if not validate_transac_id[0]:
-        raise HTTPException(status_code=400, detail=validate_transac_id[1])
-
-    transac = repot.get_transac(transac_id)
-    if transac is not None:
-        raise HTTPException (status_code=409, detail=" Transação já existe")
 
     model = {
         "2": 0,
@@ -71,20 +62,20 @@ def create_deposit(request: dict):
     quantia = 0.0
 
     for chave in request:
-        if model[chave, None] is not None:
-            quantia += int(chave) * float(request.get(model[chave]))
+        if model.get(chave, None) is not None:
+            quantia += float(chave) * float(request[chave])
 
-    if quantia > clienteTeste.current_balance*2:
+    if quantia > clienteTeste.saldo_atual*2:
         raise HTTPException(status_code=403, detail="Saldo suspeito")
 
     clienteTeste.saldo_atual += quantia
 
-    transacao = Transacao(saldoNaHora=clienteTeste.saldo_atual, hora=datetime.fromtimestamp(time.time()), quantia=quantia, tipo=TransacTypeEnum.DEPOSIT)
+    transacao = Transacao(saldoNaHora=clienteTeste.saldo_atual, hora=time.time(), quantia=quantia, tipo=TransacTypeEnum.DEPOSIT)
 
     repot.cria_transacao(transac=transacao, transac_id=int((transacao.saldoNaHora * transacao.quantia) / 1000))
 
     return {
-        "hora": datetime.fromtimestamp(time.time()),
+        "hora":time.time(),
         "saldoNaHora": clienteTeste.saldo_atual
     }
 

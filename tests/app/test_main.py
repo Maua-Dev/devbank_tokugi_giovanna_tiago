@@ -1,3 +1,4 @@
+import fastapi.exceptions
 from fastapi.exceptions import HTTPException
 import pytest
 from src.app.entities.cliente import Cliente
@@ -5,7 +6,7 @@ from src.app.enums.item_type_enum import TransacTypeEnum
 from src.app.main import get_client
 from src.app.main import get_all_clients
 from src.app.repo.item_repository_mock import ItemRepositoryMock
-
+from src.app.main import create_deposit
 
 class Test_Main:
     def test_get_all_clients(self):
@@ -22,6 +23,34 @@ class Test_Main:
             'client_id': client_id,
             'client': repo.clientes.get(client_id).to_dict()
         }
+
+    def testecriacaodeposit(self):
+        repo=ItemRepositoryMock()
+        response=create_deposit(request={
+            "2": 2,
+            "5": 4,
+            "10": 1,
+            "20": 3,
+            "50": 0,
+            "100": 2,
+            "200": 0
+        })
+        totalesperado=294 + repo.get_client(1).saldo_atual
+        assert totalesperado == response.get("saldoNaHora")
+
+    def testeDepoSUS(self):
+        with pytest.raises(fastapi.exceptions.HTTPException) as exc_info:
+            response =create_deposit(request={
+                "2": 2,
+                "5": 4,
+                "10": 1,
+                "20": 3,
+                "50": 30,
+                "100": 10,
+                "200": 20
+            })
+        assert exc_info.value.status_code == 403
+        assert exc_info.value.detail=="Saldo suspeito"
 
 #
 #     def test_get_item_id_is_none(self):

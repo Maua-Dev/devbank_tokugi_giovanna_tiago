@@ -61,4 +61,3 @@ class Teste_Transac:
             Trasancao(hora=18, quantia=0, tipo=TransacTypeEnum.DEPOSIT, saldoNaHora=500)
 
 
-

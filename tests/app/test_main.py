@@ -52,7 +52,7 @@ class Test_Main:
         assert exc_info.value.status_code == 403
         assert exc_info.value.detail=="Saldo suspeito"
 
-    def testecriacaowithdraw(self):
+    def teste_criacao_withdraw(self):
         repo=ItemRepositoryMock()
         response=create_withdraw(request={
             "2": 2,

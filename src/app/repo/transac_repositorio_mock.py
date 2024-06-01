@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 from src.app.repo.transac_repositorio_interface import TransacRepository
 from ..entities.transacao import Transacao
@@ -24,3 +24,5 @@ class TransacRepositoriMock(TransacRepository):
         return transac
 
 
+    def get_all_transactions(self) -> List[Transacao]:
+        return self.transacoes.values()

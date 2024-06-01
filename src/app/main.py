@@ -115,6 +115,13 @@ def create_deposit(request: dict):
         "saldoNaHora": clienteTeste.saldo_atual
     }
 
+@app.get ("/history", status_code=201)
+def get_history():
+    transacoes = repot.get_all_transactions()
+    return {
+        "all_transactions": [transacao.to_dict() for transacao in transacoes]
+    }
+
 
 
 # @app.post("/items/create_item", status_code=201)

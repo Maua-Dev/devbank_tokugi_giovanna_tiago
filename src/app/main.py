@@ -1,17 +1,12 @@
 import time
-
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 from .entities.transacao import Transacao
 from .environments import Environments
 from datetime import datetime
-
 from .repo.item_repository_mock import ItemRepositoryMock
-
 from .errors.entity_errors import ParamNotValidated
-
 from .enums.item_type_enum import TransacTypeEnum
-
 from .entities.cliente import Cliente
 
 app = FastAPI()

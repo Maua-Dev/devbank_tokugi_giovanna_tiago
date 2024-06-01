@@ -46,6 +46,7 @@ def get_client(client_id: int):
     }
 
 
+
 @app.post("/deposit", status_code=201)
 def create_deposit(request: dict):
 
@@ -78,6 +79,42 @@ def create_deposit(request: dict):
         "hora":time.time(),
         "saldoNaHora": clienteTeste.saldo_atual
     }
+
+
+
+@app.post("/withdraw", status_code=201)
+def create_deposit(request: dict):
+
+    model = {
+        "2": 0,
+        "5": 0,
+        "10": 0,
+        "20": 0,
+        "50": 0,
+        "100": 0,
+        "200": 0
+    }
+
+    quantia = 0.0
+
+    for chave in request:
+        if model.get(chave, None) is not None:
+            quantia += float(chave) * float(request[chave])
+
+    if quantia > clienteTeste.saldo_atual:
+        raise HTTPException(status_code=403, detail="Saldo insuficiente")
+
+    clienteTeste.saldo_atual -= quantia
+
+    transacao = Transacao(saldoNaHora=clienteTeste.saldo_atual, hora=time.time(), quantia=quantia, tipo=TransacTypeEnum.DEPOSIT)
+
+    repot.cria_transacao(transac=transacao, transac_id=int((transacao.saldoNaHora * transacao.quantia) / 1000))
+
+    return {
+        "hora": time.time(),
+        "saldoNaHora": clienteTeste.saldo_atual
+    }
+
 
 
 # @app.post("/items/create_item", status_code=201)

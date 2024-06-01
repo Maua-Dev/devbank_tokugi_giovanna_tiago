@@ -38,7 +38,7 @@ class Test_Main:
         totalesperado=294 + repo.get_client(1).saldo_atual
         assert totalesperado == response.get("saldoNaHora")
 
-    def testeDepoSUS(self):
+    def teste_depo_sus(self):
         with pytest.raises(fastapi.exceptions.HTTPException) as exc_info:
             response =create_deposit(request={
                 "2": 2,

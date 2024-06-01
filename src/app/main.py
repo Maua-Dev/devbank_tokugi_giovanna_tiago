@@ -83,7 +83,7 @@ def create_deposit(request: dict):
 
 
 @app.post("/withdraw", status_code=201)
-def create_deposit(request: dict):
+def create_withdraw(request: dict):
 
     model = {
         "2": 0,

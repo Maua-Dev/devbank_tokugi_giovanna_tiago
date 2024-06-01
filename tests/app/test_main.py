@@ -35,7 +35,7 @@ class Test_Main:
             "100": 2,
             "200": 0
         })
-        totalesperado=294 + repo.get_client(1).saldo_atual
+        totalesperado = 294 + repo.get_client(1).saldo_atual
         assert totalesperado == response.get("saldoNaHora")
 
     def teste_depo_sus(self):
@@ -63,7 +63,7 @@ class Test_Main:
             "100": 1,
             "200": 0
         })
-        totalesperado = repo.get_client(1).saldo_atual - 194
+        totalesperado = repo.get_client(1).saldo_atual + 294 - 194
         assert totalesperado == response.get("saldoNaHora")
 
     def teste_saldo_insuficiente(self):

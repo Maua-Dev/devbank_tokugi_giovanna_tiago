@@ -1,6 +1,6 @@
 from typing import Dict, Optional, List
 
-from src.app.repo.transac_repositorio_interface import TransacRepository
+from .transac_repositorio_interface import TransacRepository
 from ..entities.transacao import Transacao
 
 

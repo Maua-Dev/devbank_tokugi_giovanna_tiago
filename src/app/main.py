@@ -216,4 +216,4 @@ def get_history():
 #
 #
 #
-# handler = Mangum(app, lifespan="off")
+handler = Mangum(app, lifespan="off")
